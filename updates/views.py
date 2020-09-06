@@ -2,10 +2,17 @@ from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 import json
 
+from django.views.generic import View
+
+from restapi.mixins import JsonResponseMixin
+
 # Create your views here.
 
 
-def update_model_detail_view(request):
+def json_example_view(request):
+    '''
+        GET --> Retrieve
+    '''
 
     data = {"count": 1000, "content": "adsf"}
 
@@ -21,3 +28,19 @@ Since version 1.7, Django counts with the built-in JsonResponse class, which is 
     # return JsonResponse(data)
 
     return HttpResponse(json_data, content_type='application/json')
+
+
+class JsonCBV(View):
+    def get(self, request, *args, **kwargs):
+
+        data = {"count": 1000, "content": "adsf"}
+
+        return JsonResponse(data)
+
+
+class JsonCBV2(JsonResponseMixin, View):
+    def get(self, request, *args, **kwargs):
+
+        data = {"count": 1000, "content": "adsf"}
+
+        return self.rendor_to_json_response(data)
