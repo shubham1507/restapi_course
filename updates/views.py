@@ -33,7 +33,7 @@ Since version 1.7, Django counts with the built-in JsonResponse class, which is 
 class JsonCBV(View):
     def get(self, request, *args, **kwargs):
 
-        data = {"count": 1000, "content": "adsf"}
+        data = {"count": 1000, "content": "sample JSON content"}
 
         return JsonResponse(data)
 
@@ -41,6 +41,6 @@ class JsonCBV(View):
 class JsonCBV2(JsonResponseMixin, View):
     def get(self, request, *args, **kwargs):
 
-        data = {"count": 1000, "content": "adsf"}
+        data = {"count": 1000, "content": "sample JSON content"}
 
         return self.rendor_to_json_response(data)
