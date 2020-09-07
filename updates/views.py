@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 import json
-
 from django.core.serializers import serialize
 
 from django.views.generic import View
@@ -55,9 +54,9 @@ class SerializedDetailView(View):
 
         obj = Update.objects.get(id=1)
 
-        data = serialize("json", [obj], fields=('user', 'content'))
+        # data = serialize("json", [obj], fields=('user', 'content'))
 
-        json_data = json.dumps(data)
+        json_data = obj.serialize()
 
         return HttpResponse(json_data, content_type='application/json')
 
@@ -67,8 +66,8 @@ class SerializedListView(View):
 
         qs = Update.objects.all()
 
-        data = serialize("json", qs, fields=('user', 'content'))
+        # data = serialize("json", qs, fields=('user', 'content'))
 
-        print(data)
+        data = qs.serialize()
 
         return HttpResponse(data, content_type='application/json')
