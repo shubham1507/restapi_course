@@ -17,16 +17,22 @@ class UpdateQuerySet(models.QuerySet):
     #     qs = self
     #     return serialize('json', qs, fields=('user', 'content', 'image'))
 
+    # def serialize(self):
+    #     qs = self
+    #     final_array = []
+    #     import json
+    #     for obj in qs:
+
+    #         stuct = json.loads(obj.serialize())
+    #         final_array.append(stuct)
+
+    #     return json.dumps(final_array)
+
     def serialize(self):
-        qs = self
-        final_array = []
-        import json
-        for obj in qs:
 
-            stuct = json.loads(obj.serialize())
-            final_array.append(stuct)
+        list_values = list(self.values("user", "content", "image"))
 
-        return json.dumps(final_array)
+        print(list_values)
 
 
 class UpdateManager(models.Manager):
