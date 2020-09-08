@@ -29,3 +29,21 @@ def get_list():
 
 
 get_list()
+
+
+def create_update():
+
+    dict_ = {'user': 1, "content": 'another new update'}
+
+    r = requests.delete(BASE_URL + ENDPOINT, data=dict_)
+
+    # r = requests.post(BASE_URL + ENDPOINT, data=dict_)
+
+    if r.status_code == requests.codes.ok:
+
+        return r.json()
+
+    return r.text
+
+
+create_update()

@@ -6,8 +6,12 @@ from django.views.generic import View
 
 from django.core.serializers import serialize
 
+from .mixins import CSRFExemptMixin
 
-class UpdateModelDetailAPIView(View):
+import json
+
+
+class UpdateModelDetailAPIView(View, CSRFExemptMixin):
     '''
     retrieve,update,delete --> Object
     '''
@@ -32,7 +36,7 @@ class UpdateModelDetailAPIView(View):
         return HttpResponse({}, content_type='application/json')
 
 
-class UpdateModelListAPIView(View):
+class UpdateModelListAPIView(CSRFExemptMixin, View):
     '''
     ListView
     createView
@@ -41,10 +45,18 @@ class UpdateModelListAPIView(View):
 
         qs = UpdateModel.objects.all()
 
-        json_data = qs.serialize()
+        json_data = serialize("json", qs)
 
         return HttpResponse(json_data, content_type='application/json')
 
     def post(self, request, *args, **kwargs):
 
-        return HttpResponse({}, content_type='application/json')
+        data = json.dumps({"message": "unknown data"})
+
+        return HttpResponse(data, content_type='application/json')
+
+    def delete(self, request, *args, **kwargs):
+
+        data = json.dumps({"message": "You can not delete"})
+
+        return HttpResponse(data, content_type='application/json')
