@@ -1,12 +1,11 @@
 from django.conf.urls import url
-from .views import StatusAPIView
+from .views import StatusAPIView, StatusCreateAPIView
 
 urlpatterns = [
     url(r'^$',
         StatusAPIView().as_view()),
     #/api/status/ -> list
-    # url(r'^create/$',
-    #     StatusAPICreateView().as_view()),
+    url(r'^create/$', StatusCreateAPIView.as_view()),
     # #/api/status/create -> create
     # url(r'^(?<id>.*)/$',
     #     StatusAPIDetailView().as_view()),

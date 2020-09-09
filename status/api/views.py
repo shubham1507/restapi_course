@@ -34,3 +34,9 @@ class StatusAPIView(generics.ListAPIView):
             print(qs)
 
         return qs
+
+
+class StatusCreateAPIView(generics.CreateAPIView):
+
+    queryset = Status.objects.all()
+    serializer_class = StatusSerializer
